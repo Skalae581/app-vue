@@ -21,7 +21,8 @@ Ideal für CRUD-Apps, Prototypen und Schulungszwecke.
 - Optional: **Docker** (für PostgreSQL)
 
 Prüfen:
-```bash
+
+``
 java -version
 mvn -v
 node -v
