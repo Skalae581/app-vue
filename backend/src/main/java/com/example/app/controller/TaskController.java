@@ -3,10 +3,9 @@ package com.example.app.controller;
 import com.example.app.model.Task;
 import com.example.app.service.TaskService;
 import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -14,32 +13,18 @@ import java.util.List;
 public class TaskController {
 
     private final TaskService service;
+    public TaskController(TaskService service) { this.service = service; }
 
-    public TaskController(TaskService service) {
-        this.service = service;
-    }
+    @GetMapping public List<Task> all() { return service.findAll(); }
 
-    @GetMapping
-    public List<Task> all() {
-        return service.findAll();
-    }
+    @GetMapping("/{id}") public Task one(@PathVariable Long id) { return service.findById(id); }
 
-    @PostMapping
-    public ResponseEntity<Task> create(@Valid @RequestBody Task task) {
-        Task saved = service.create(task);
-        return ResponseEntity
-                .created(URI.create("/api/tasks/" + saved.getId()))
-                .body(saved);
-    }
+    @PostMapping @ResponseStatus(HttpStatus.CREATED)
+    public Task create(@Valid @RequestBody Task t) { return service.create(t); }
 
     @PutMapping("/{id}")
-    public Task update(@PathVariable Long id, @Valid @RequestBody Task task) {
-        return service.update(id, task);
-    }
+    public Task update(@PathVariable Long id, @Valid @RequestBody Task t) { return service.update(id, t); }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        service.delete(id);
-        return ResponseEntity.noContent().build();
-    }
+    @DeleteMapping("/{id}") @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) { service.delete(id); }
 }

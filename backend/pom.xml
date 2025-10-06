@@ -54,21 +54,31 @@
       <optional>true</optional>
     </dependency>
 
-    <!-- Für Prod optional: PostgreSQL -->
-    <!--
+    
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <scope>runtime</scope>
     </dependency>
-    -->
-    <!-- Tests (optional)
+    <!-- … deine Spring-Dependencies … -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.36</version>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
-    -->
+        <!-- Jakarta Persistence API -->
+    <dependency>
+        <groupId>jakarta.persistence</groupId>
+        <artifactId>jakarta.persistence-api</artifactId>
+        
+    </dependency>
+
   </dependencies>
 
   <build>
